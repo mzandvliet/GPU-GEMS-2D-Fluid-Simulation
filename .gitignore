@@ -1,0 +1,7 @@
+Library/
+Temp/
+obj/
+.vscode/
+Logs/
+Scrawk_GPUGEMS_fluid2d.sln
+Assembly-CSharp.csproj

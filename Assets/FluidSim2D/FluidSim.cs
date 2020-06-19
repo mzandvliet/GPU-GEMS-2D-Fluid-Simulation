@@ -39,19 +39,14 @@ namespace FluidSim2DProject
         Vector2 m_obstaclePos = new Vector2(0.5f, 0.5f);
         float m_obstacleRadius = 0.1f;
 
-        GUITexture m_gui;
+        int m_width = 512 * 2;
+        int m_height = 512 * 2;
 
-        int m_width, m_height;
         Vector2 m_offset;
 
         void Start()
         {
-
-            m_gui = GetComponent<GUITexture>();
-
-            m_width = (int)m_gui.pixelInset.width;
-            m_height = (int)m_gui.pixelInset.height;
-            m_offset = new Vector2(m_gui.pixelInset.x, m_gui.pixelInset.y);
+            m_offset = new Vector2(m_width, m_height);
 
             m_inverseSize = new Vector2(1.0f / m_width, 1.0f / m_height);
 
@@ -80,7 +75,6 @@ namespace FluidSim2DProject
             m_obstaclesTex.wrapMode = TextureWrapMode.Clamp;
             m_obstaclesTex.Create();
 
-            GetComponent<GUITexture>().texture = m_guiTex;
             m_guiMat.SetTexture("_Obstacles", m_obstaclesTex);
 
         }
@@ -270,6 +264,14 @@ namespace FluidSim2DProject
 
             //Render the rex you want to see into gui tex. Will only use the red channel
             Graphics.Blit(m_densityTex[READ], m_guiTex, m_guiMat);
+        }
+
+        private void OnGUI() {
+            float size = Mathf.Min(Screen.width, Screen.height);
+            GUI.DrawTexture(
+                new Rect(0,0,size,size),
+                m_guiTex
+            );
         }
     }
 
